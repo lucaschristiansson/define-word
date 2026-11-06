@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Define Word – Settings</title>
+  <style>
+    :root { --bg:#fff; --fg:#1d1d1f; --muted:#6b6b70; --line:#e4e4e8; --accent:#1f5fa8; --ok:#1a7f37; --err:#c62828; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#1c1c1f; --fg:#ececef; --muted:#a0a0a8; --line:#3a3a40; --accent:#7fb2ff; --ok:#5cc87a; --err:#ff7b7b; }
+    }
+    body { background:var(--bg); color:var(--fg); font:15px/1.5 system-ui, sans-serif; max-width:600px; margin:40px auto; padding:0 20px; }
+    h1 { font:700 24px Georgia, serif; margin-bottom:4px; }
+    h2 { font-size:16px; margin-top:28px; }
+    p, li { color:var(--muted); }
+    a { color:var(--accent); }
+    .row { display:flex; gap:8px; margin-top:8px; }
+    input { flex:1; font:14px ui-monospace, monospace; padding:8px 10px; border:1px solid var(--line); border-radius:6px; background:transparent; color:var(--fg); }
+    input:focus { outline:2px solid var(--accent); outline-offset:-1px; }
+    button { font:inherit; padding:8px 14px; border-radius:6px; border:1px solid var(--line); background:transparent; color:var(--fg); cursor:pointer; }
+    button.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+    button:disabled { opacity:.55; cursor:default; }
+    #status { min-height:1.5em; margin-top:10px; }
+    #status.ok { color:var(--ok); } #status.err { color:var(--err); }
+    .badge { display:inline-block; padding:2px 10px; border-radius:99px; border:1px solid var(--line); font-size:13px; }
+  </style>
+</head>
+<body>
+  <h1>Define Word</h1>
+  <p>Currently using: <span id="current" class="badge">…</span></p>
+
+  <h2>Merriam-Webster API key</h2>
+  <p>
+    Add a free key to get definitions from Merriam-Webster instead of the Free Dictionary.
+    Register at <a href="https://dictionaryapi.com/register/index" target="_blank" rel="noopener noreferrer">dictionaryapi.com</a>
+    and pick <strong>Collegiate Dictionary</strong> as one of the APIs, then paste that key below.
+  </p>
+
+  <form id="form" autocomplete="off">
+    <div class="row">
+      <input id="key" type="password" spellcheck="false" autocapitalize="off"
+             placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" aria-label="Merriam-Webster API key">
+      <button type="button" id="toggle" title="Show/hide key">Show</button>
+    </div>
+    <div class="row">
+      <button type="submit" id="save" class="primary">Validate &amp; save</button>
+      <button type="button" id="remove">Remove key</button>
+    </div>
+  </form>
+  <div id="status" role="status" aria-live="polite"></div>
+
+  <h2>Security</h2>
+  <ul>
+    <li>Your key is stored only on this device, in the add-on's local storage. It isn't synced.</li>
+    <li>It's only ever sent to dictionaryapi.com over HTTPS. Web pages and the popup never see it.</li>
+    <li>After saving, only the last 4 characters are ever shown.</li>
+  </ul>
+
+  <h2>Shortcuts</h2>
+  <p>Select a word and press <strong>Alt+Shift+D</strong>, or right-click → Define. You can change the
+     shortcut at <code>about:addons</code> → ⚙️ → Manage Extension Shortcuts.</p>
+
+  <script src="common.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
