@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Define Word",
+  "version": "1.7",
+  "description": "Right-click a selected word (or press Alt+Shift+D) to see its definition in a popup on the page.",
+  "permissions": ["menus", "activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "https://www.dictionaryapi.com/*",
+    "https://api.dictionaryapi.dev/*",
+    "https://media.merriam-webster.com/*"
+  ],
+  "background": { "scripts": ["common.js", "background.js"] },
+  "options_ui": { "page": "options.html", "open_in_tab": true },
+  "commands": {
+    "define-selection": {
+      "suggested_key": { "default": "Alt+Shift+D" },
+      "description": "Define the selected word"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src https://www.dictionaryapi.com https://api.dictionaryapi.dev https://media.merriam-webster.com; base-uri 'none'; form-action 'none'"
+  },
+  "icons": { "48": "icon.svg", "96": "icon.svg" },
+  "browser_specific_settings": {
+    "gecko": { "id": "define-word@lucas.local", "strict_min_version": "115.0" }
+  }
+}
